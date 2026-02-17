@@ -7,3 +7,4 @@ updates:
       interval: daily
     allow:
       - dependency-name: "pandas*"
+      - dependency-type: "direct"
