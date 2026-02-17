@@ -1,0 +1,17 @@
+name: dependency review
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  dr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: dr
+        uses: actions/dependency-review-action@v4
