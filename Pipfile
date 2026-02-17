@@ -5,6 +5,7 @@ verify_ssl = true
 
 [packages]
 pandas = "==1.0.0"
+urllib3 = "==1.26.0"
 
 [dev-packages]
 
