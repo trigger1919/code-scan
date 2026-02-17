@@ -6,6 +6,7 @@ verify_ssl = true
 [packages]
 pandas = "==2.3.3"
 urllib3 = "==2.2.1"
+sqlparse = "==0.4.4"
 
 [dev-packages]
 
