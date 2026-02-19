@@ -15,10 +15,24 @@ jobs:
           python-version: "3.11"
 
       - name: get codeql
+        shell: bash
         run: |
-          curl -L -o codeql-bundle.tar.gz https://github.com/github/codeql-action/releases/latest/download/codeql-bundle-linux64.tar.gz
+         set -euxo pipefail
+          curl -L -o codeql-bundle.tar.gz \
+            https://github.com/github/codeql-action/releases/latest/download/codeql-bundle-linux64.tar.gz
           tar -xzf codeql-bundle.tar.gz
-          echo "$PWD/codeql" >> $GITHUB_PATH
+          # Add the extracted 'codeql' dir to PATH for the rest of the job
+          echo "$PWD/codeql" >> "$GITHUB_PATH"
+
+
+      - name: Verify CodeQL is on PATH
+        shell: bash
+        run: |
+          set -euxo pipefail
+          echo "PATH is: $PATH"
+          which codeql
+          codeql version
+
       
       - name: create db
         run: |
