@@ -16,8 +16,8 @@ jobs:
 
       - name: get codeql
         run: |
-          curl -L -o codeql-bundle.tar.gz https://github.com/github/codeql-action/archive/refs/tags/v4.32.3.tar.gz |
-          tar -xzf codeql-bundle.tar.gz |
+          curl -L -o codeql-bundle.tar.gz https://github.com/github/codeql-action/releases/latest/download/codeql-bundle-linux64.tar.gz
+          tar -xzf codeql-bundle.tar.gz
           echo "$PWD/codeql" >> $GITHUB_PATH
       
       - name: create db
