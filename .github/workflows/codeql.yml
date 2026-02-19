@@ -26,6 +26,7 @@ jobs:
       with:
         languages: ${{matrix.language}}
         build-mode: ${{matrix.build-mode}}
+        queries: +security-and-quality
         
     - name: analyze
       uses: github/codeql-action/analyze@v4
