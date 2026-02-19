@@ -1,0 +1,40 @@
+name: CodeQL cli
+on:
+  workflow_dispatch:
+
+jobs:
+  codeql-cli:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: get codeql
+        run: |
+          curl -L -o codeql-bundle.tar.gz https://github.com/github/codeql-action/archive/refs/tags/v4.32.3.tar.gz
+          tar -xzf codeql-bundle.tar.gz
+          echo "$PWD/codeql" >> $GITHUB_PATH
+      
+      - name: create db
+        run: |
+          codeql database create db-python \
+            --language=python \
+            --source-root .
+
+      - name: analyze
+        run: |
+          codeql database analyze db-python \
+            --format=sarifv2.1.0 --output=results.sarif \
+            --download \
+            codeql/python-queries:codeql-suites/python-security-and-quality
+
+      - name: upload
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
+        
