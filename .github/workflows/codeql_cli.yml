@@ -33,6 +33,15 @@ jobs:
           which codeql
           codeql version
 
+
+      - name: Pre-download Python queries pack (idempotent)
+        shell: bash
+        run: |
+          set -euxo pipefail
+          codeql pack download codeql/python-queries
+          # Helpful for debugging pack resolution if needed:
+          codeql resolve qlpacks | sed -n '1,120p
+
       
       - name: create db
         run: |
@@ -42,8 +51,11 @@ jobs:
 
       - name: analyze
         run: |
-          codeql database analyze db-python codeql/python-queries:codeql-suites/python-security-and-quality --format=sarifv2.1.0 --output=results.sarif --download
-            
+          codeql database analyze db-python codeql/python-queries:codeql-suites/python-security-and-quality --format=sarifv2.1.0 --output=results.sarif --download \
+            --no-default-config \
+            --threads=0 \
+            --sarif-category=python
+  
       - name: upload
         uses: github/codeql-action/upload-sarif@v3
         with:
