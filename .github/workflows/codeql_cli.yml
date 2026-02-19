@@ -43,7 +43,6 @@ jobs:
       - name: analyze
         run: |
           codeql database analyze db-python codeql/python-queries:codeql-suites/python-security-and-quality --format=sarifv2.1.0 --output=results.sarif --download \
-            --no-default-config \
             --threads=0 \
             --sarif-category=python
   
