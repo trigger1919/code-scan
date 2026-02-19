@@ -43,9 +43,10 @@ jobs:
       - name: analyze
         run: |
           codeql database analyze db-python \
+            codeql/python-queries:codeql-suites/python-security-and-quality \
             --format=sarifv2.1.0 --output=results.sarif \
-            --download \
-            codeql/python-queries:codeql-suites/python-security-and-quality
+            --download
+            
 
       - name: upload
         uses: github/codeql-action/upload-sarif@v3
