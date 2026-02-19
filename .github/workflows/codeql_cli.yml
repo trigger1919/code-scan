@@ -33,15 +33,6 @@ jobs:
           which codeql
           codeql version
 
-
-      - name: Pre-download Python queries pack (idempotent)
-        shell: bash
-        run: |
-          set -euxo pipefail
-          codeql pack download codeql/python-queries
-          # Helpful for debugging pack resolution if needed:
-          codeql resolve qlpacks | sed -n '1,120p
-
       
       - name: create db
         run: |
